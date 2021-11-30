@@ -1,13 +1,12 @@
-package Sample.JPA_SAMPLE
+package sample.jpa
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class JpaSampleApplicationTests {
+class SampleApplicationTests {
 
-	@Test
-	fun contextLoads() {
-	}
-
+    @Test
+    fun contextLoads() {
+    }
 }

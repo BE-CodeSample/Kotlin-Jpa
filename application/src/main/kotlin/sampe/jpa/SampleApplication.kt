@@ -1,11 +1,11 @@
-package Sample.JPA_SAMPLE
+package sampe.jpa
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class JpaSampleApplication
+open class SampleApplication
 
 fun main(args: Array<String>) {
-	runApplication<JpaSampleApplication>(*args)
+    runApplication<SampleApplication>(*args)
 }
