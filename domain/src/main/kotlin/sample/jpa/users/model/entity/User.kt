@@ -1,9 +1,6 @@
 package sample.jpa.users.model.entity
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 data class User (
@@ -12,10 +9,12 @@ data class User (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    var email: String? = null,
+    @Column(nullable = false)
+    var email: String,
 
-    var nickname: String? = null,
+    @Column(length = 50, nullable = false)
+    var nickname: String,
 
-    var password: String? = null,
-
+    @Column(length = 100, nullable = false)
+    var password: String,
 )
