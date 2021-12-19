@@ -51,6 +51,7 @@ subprojects {
 
 	dependencies {
 		implementation("org.springframework.boot:spring-boot-starter-web")
+		implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 		annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 		implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -82,7 +83,6 @@ project(":domain") {
 	bootJar.enabled = false
 	jar.enabled = true
 	dependencies {
-		implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 		runtimeOnly("com.h2database:h2")
 		runtimeOnly("mysql:mysql-connector-java")
 	}
