@@ -9,7 +9,6 @@ data class Board (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "board_id", nullable = false)
     val id: Long? = null,
 
     @Column(name = "board_type", nullable = false)
