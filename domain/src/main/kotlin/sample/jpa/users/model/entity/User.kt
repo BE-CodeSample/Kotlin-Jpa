@@ -1,5 +1,6 @@
 package sample.jpa.users.model.entity
 
+import sample.jpa.post.model.entity.Post
 import javax.persistence.*
 
 @Entity
@@ -17,4 +18,7 @@ data class User (
 
     @Column(length = 100, nullable = false)
     var password: String,
+
+    @OneToMany(mappedBy = "user")
+    var posts: MutableList<Post>? = null
 )
