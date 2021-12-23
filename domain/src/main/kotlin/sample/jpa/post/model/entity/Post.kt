@@ -6,16 +6,16 @@ import sample.jpa.users.model.entity.User
 import javax.persistence.*
 
 @Entity
-data class Post(
+class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @Column(nullable = false)
+    @Column(name = "title" , length = 100, nullable = false)
     var title: String,
 
     @Lob
-    @Column(nullable = true)
+    @Column(name = "content", nullable = true)
     var content: String? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)

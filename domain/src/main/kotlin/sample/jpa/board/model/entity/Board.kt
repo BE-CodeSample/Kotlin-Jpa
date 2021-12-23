@@ -6,19 +6,17 @@ import sample.jpa.post.model.entity.Post
 import javax.persistence.*
 
 @Entity
-data class Board (
+class Board (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @Column(name = "board_type", nullable = false)
+    @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
     val type: BoardType,
 
-    @Column(name = "board_title", length = 100, nullable = false)
+    @Column(name = "title", length = 100, nullable = false)
     val title: String,
 
-    @OneToMany(mappedBy = "board",cascade = [CascadeType.REMOVE])
-    var posts: MutableList<Post>? = null
 ) : CreatedAtEntity()

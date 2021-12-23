@@ -4,7 +4,7 @@ import sample.jpa.post.model.entity.Post
 import javax.persistence.*
 
 @Entity
-data class User (
+class User (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,4 @@ data class User (
     @Column(length = 100, nullable = false)
     var password: String,
 
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.REMOVE])
-    var posts: MutableList<Post>? = null
 )
