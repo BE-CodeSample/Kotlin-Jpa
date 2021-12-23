@@ -3,11 +3,10 @@ package sample.jpa.post.model.entity
 import sample.jpa.CreatedUpdatedAtEntity
 import sample.jpa.board.model.entity.Board
 import sample.jpa.users.model.entity.User
-import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
-class Post(
+data class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,

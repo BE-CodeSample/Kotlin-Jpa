@@ -19,6 +19,6 @@ data class Board (
     @Column(name = "board_title", length = 100, nullable = false)
     val title: String,
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board",cascade = [CascadeType.REMOVE])
     var posts: MutableList<Post>? = null
 ) : CreatedAtEntity()

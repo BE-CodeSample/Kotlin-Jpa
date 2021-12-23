@@ -19,6 +19,6 @@ data class User (
     @Column(length = 100, nullable = false)
     var password: String,
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.REMOVE])
     var posts: MutableList<Post>? = null
 )
