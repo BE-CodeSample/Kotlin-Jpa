@@ -6,5 +6,5 @@ import sample.jpa.board.model.entity.Board
 
 @Repository
 interface BoardRepository: JpaRepository<Board, Long> {
-    fun existsByBoardTitle(title: String): Boolean
+    fun existsByTitle(title: String): Boolean
 }

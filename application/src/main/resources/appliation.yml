@@ -11,9 +11,13 @@ spring:
       properties:
         hibernate:
           dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
 server:
   servlet:
     encoding:
       charset: UTF-8
       enabled: true
       force: true
+
+
+

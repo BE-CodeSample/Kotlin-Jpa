@@ -1,4 +1,4 @@
-package sampe.jpa
+package sample.jpa
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
