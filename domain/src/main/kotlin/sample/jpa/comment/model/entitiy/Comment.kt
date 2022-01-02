@@ -9,7 +9,6 @@ import javax.persistence.*
 @Entity
 class Comment(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "commnet_id")
         val id: Long = 0,
 
         @Lob

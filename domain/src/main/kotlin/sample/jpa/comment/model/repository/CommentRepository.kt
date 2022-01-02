@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository
 import sample.jpa.comment.model.entitiy.Comment
 
 @Repository
-interface CommentRepository:JpaRepository<Long,Comment> {
+interface CommentRepository:JpaRepository<Comment, Long> {
 }
