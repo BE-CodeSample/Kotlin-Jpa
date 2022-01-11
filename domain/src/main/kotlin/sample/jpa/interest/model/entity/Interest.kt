@@ -1,5 +1,6 @@
 package sample.jpa.interest.model.entity
 
+import sample.jpa.CreatedUpdatedAtEntity
 import sample.jpa.common.enum.Category
 import javax.persistence.*
 
@@ -12,5 +13,8 @@ class Interest(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
-    val category: Category
-)
+    val category: Category,
+
+    @OneToMany(mappedBy = "interest")
+    val userAndInterest: MutableList<UserAndInterest>?=null
+): CreatedUpdatedAtEntity(){}
