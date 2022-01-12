@@ -1,8 +1,8 @@
 package sample.jpa.interest.model.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
-import sample.jpa.interest.model.entity.UserAndInterest
+import sample.jpa.interest.model.entity.UserInterest
 
 
-interface UserAndInterestRepository:JpaRepository<UserAndInterest,Long> {
+interface UserAndInterestRepository:JpaRepository<UserInterest,Long> {
 }

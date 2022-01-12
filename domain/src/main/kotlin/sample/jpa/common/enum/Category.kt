@@ -6,5 +6,6 @@ enum class Category {
     RELATIONSHIP,
     HEALTH,
     BOOK,
-    FASHION
+    FASHION,
+    ETC
 }

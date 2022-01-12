@@ -5,7 +5,7 @@ import sample.jpa.users.model.entity.User
 import javax.persistence.*
 
 @Entity
-class UserAndInterest (
+class UserInterest (
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id : Long? = 0,

@@ -16,7 +16,7 @@ class Advertisement(
     var content : String,
 
     @Column(name="photo", nullable = true)
-    var photoUrl : String,
+    var photoUrl : String? = null,
 
     @Column(name="category", nullable = false)
     @Enumerated(EnumType.STRING)
