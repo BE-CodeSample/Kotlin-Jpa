@@ -9,12 +9,12 @@ class Interest(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long =0,
+    val id: Long = 0,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
     var category: Category,
 
     @OneToMany(mappedBy = "interest")
-    var userInterest: MutableList<UserInterest>?=null
+    var userInterest: MutableList<UserInterest> = mutableListOf<UserInterest>()
 ): CreatedUpdatedAtEntity(){}

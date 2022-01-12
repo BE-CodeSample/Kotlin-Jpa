@@ -20,6 +20,6 @@ class User (
     var password: String,
 
     @OneToMany(mappedBy = "user")
-    var userInterest: MutableList<UserInterest>?=null
+    var userInterest: MutableList<UserInterest> = mutableListOf<UserInterest>()
 
 )
