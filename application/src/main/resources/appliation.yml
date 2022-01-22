@@ -11,6 +11,8 @@ spring:
       properties:
         hibernate:
           dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  profiles:
+    inclue: jwt
 
 server:
   servlet:
@@ -18,6 +20,7 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+
 
 
 
