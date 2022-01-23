@@ -16,7 +16,7 @@ class JwtFilter(private val jwtProvider: JwtProvider)
             response: HttpServletResponse,
             filterChain: FilterChain
     ){
-        val token = jwtProvider.resolveToken(request)
+        val token = jwtProvider.getToken(request)
 
         if (token != null && jwtProvider.validationToken(token)) {
             val userId = jwtProvider.getUserId(token)

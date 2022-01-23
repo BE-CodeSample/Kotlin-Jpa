@@ -6,4 +6,7 @@ import sample.jpa.users.model.entity.User
 
 @Repository
 interface UserRepository: JpaRepository<User, Long> {
+    fun findByUserId(userId: String) : User?
+    fun findByEmail(email: String) : User?
+    fun findByUserIdAndRefreshToken(userId: String, token: String) : User?
 }

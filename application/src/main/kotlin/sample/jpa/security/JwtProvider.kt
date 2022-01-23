@@ -8,17 +8,18 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
+import sample.jpa.users.model.dto.TokenDto
 import java.util.*
 import javax.annotation.PostConstruct
 import javax.servlet.http.HttpServletRequest
-import kotlin.coroutines.suspendCoroutine
 
 @Component
 class JwtProvider (
         @Value("spring.jwt.secret")
-        private var secretKey: String
+        private var secretKey: String,
+        private val userDetailsService: UserDetailsService
         ) {
 
     private val accessTokenValidTime: Long = 60 * 60 * 1000L
@@ -47,13 +48,13 @@ class JwtProvider (
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact()
 
-        return TokenDto.builder()
-                .grantType("bearer")
-                .accessToken(accessToken)
-                .accessTokenExpireDate(accessTokenValidTime)
-                .refreshToken(refreshToken)
-                .refreshTokenExpireDate(refreshTokenValidTime)
-                .builder()
+        return TokenDto(
+                "bearer",
+                accessToken,
+                accessTokenValidTime,
+                refreshToken,
+                refreshTokenValidTime
+        )
     }
 
     fun validationToken(token: String): Boolean {
@@ -77,7 +78,7 @@ class JwtProvider (
         return claims.subject
     }
 
-    fun resolveToken(request: HttpServletRequest): String? {
+    fun getToken(request: HttpServletRequest): String? {
         return request.getHeader("Authorization")
                 ?.substring("Bearer ".length)
     }

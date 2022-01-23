@@ -11,18 +11,21 @@ class User (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
+    @Column(length = 50, nullable = false)
+    var userId: String,
+
     @Column(nullable = false, unique = true)
     var email: String,
-
-    @Column(length = 50, nullable = false)
-    var nickname: String,
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(length = 100, nullable = false)
     var password: String,
 
+    @Column(length = 50, nullable = false)
+    var nickName: String,
+
     @OneToMany(mappedBy = "user")
-    var userInterest: MutableList<UserInterest> = mutableListOf<UserInterest>(),
+    var userInterest: MutableList<UserInterest>? = mutableListOf<UserInterest>(),
 
     @Column(nullable = false)
     var refreshToken: String
