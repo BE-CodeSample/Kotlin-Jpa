@@ -14,8 +14,8 @@ class File(
     val fileOriginalName: String,
 
     //S3와 Cloudfront를 쓰게된다면 멤버변수 변경해야함
-    @Column(name = "stored_directory", nullable = true)
-    val storedDirectory: String,
+    @Column(name = "filePath", nullable = true)
+    val filePath: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
