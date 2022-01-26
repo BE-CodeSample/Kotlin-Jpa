@@ -8,9 +8,6 @@ import javax.persistence.*
 class User (
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-
     @Column(length = 50, nullable = false)
     var userId: String,
 
@@ -30,6 +27,15 @@ class User (
     @Column(nullable = false)
     var refreshToken: String
 ) {
+    constructor(userId: String, email: String,
+                password: String, nickName: String) : this(
+            userId = userId,
+            email = email,
+            password = password,
+            nickName = nickName,
+            refreshToken = "1234567890"
+    )
+
     fun updateRefreshToken(refreshToken: String) {
         this.refreshToken = refreshToken
     }

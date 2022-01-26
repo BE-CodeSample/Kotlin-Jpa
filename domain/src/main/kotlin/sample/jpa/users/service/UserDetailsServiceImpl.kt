@@ -1,4 +1,4 @@
-package sample.jpa.auth.service
+package sample.jpa.users.service
 
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

@@ -3,18 +3,17 @@ package sample.jpa.config
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import sample.jpa.security.JwtFilter
-import sample.jpa.security.JwtProvider
+import sample.jpa.users.security.JwtFilter
+import sample.jpa.users.security.JwtProvider
 
 @Configuration
-class SecurityConfig (
+open class SecurityConfig (
         private val jwtTokenProvider: JwtProvider
         ) : WebSecurityConfigurerAdapter() {
 
@@ -39,7 +38,7 @@ class SecurityConfig (
     }
 
     @Bean
-    fun passwordEncoder() : PasswordEncoder {
+    open fun passwordEncoder() : PasswordEncoder {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }

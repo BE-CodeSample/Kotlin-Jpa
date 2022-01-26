@@ -1,4 +1,4 @@
-package sample.jpa.security
+package sample.jpa.users.security
 
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component

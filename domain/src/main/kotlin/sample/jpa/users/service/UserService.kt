@@ -1,29 +1,30 @@
-package sample.jpa.auth.service
+package sample.jpa.users.service
 
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
-import sample.jpa.auth.exception.RefreshTokenException
-import sample.jpa.auth.exception.RefreshExpirationException
-import sample.jpa.security.JwtProvider
+import sample.jpa.users.exception.RefreshExpirationException
+import sample.jpa.users.exception.RefreshTokenException
 import sample.jpa.users.exception.SignInFailedException
 import sample.jpa.users.exception.SignUpFailedException
+import sample.jpa.users.exception.UserNotExistException
 import sample.jpa.users.model.dto.RefreshTokenDto
 import sample.jpa.users.model.dto.SignInDto
 import sample.jpa.users.model.dto.SignUpDto
 import sample.jpa.users.model.dto.TokenDto
 import sample.jpa.users.model.entity.User
 import sample.jpa.users.model.repository.UserRepository
+import sample.jpa.users.security.JwtProvider
 import javax.transaction.Transactional
 
 @Service
-class AuthService (
+open class UserService (
         private val userRepository: UserRepository,
         private val jwtProvider: JwtProvider,
         private val passwordEncoder: PasswordEncoder
         ){
 
         @Transactional
-        fun signUp(dto: SignUpDto) : TokenDto {
+        open fun signUp(dto: SignUpDto) : TokenDto {
                 userRepository.findByEmail(dto.email)
                         ?. let { throw SignUpFailedException() }
                 val userId = dto.email.split("@")[0]
@@ -32,7 +33,7 @@ class AuthService (
                         User(
                                 userId = userId,
                                 email = dto.email,
-                                password = dto.password,
+                                password = passwordEncoder.encode(dto.password),
                                 nickName = dto.nickName,
                                 userInterest = null,
                                 refreshToken = token.refreshToken
@@ -42,9 +43,9 @@ class AuthService (
         }
 
         @Transactional
-        fun signIn(dto: SignInDto) : TokenDto {
+        open fun signIn(dto: SignInDto) : TokenDto {
                 val user = userRepository.findByEmail(dto.email)
-                        ?: throw SignInFailedException()
+                        ?: throw UserNotExistException()
                 if(!passwordEncoder.matches(dto.password, user.password))
                         throw SignInFailedException()
 
@@ -55,7 +56,7 @@ class AuthService (
         }
 
         @Transactional
-        fun reissue(dto: RefreshTokenDto) : TokenDto {
+        open fun reissue(dto: RefreshTokenDto) : TokenDto {
                 if(!jwtProvider.validationToken(dto.refreshToken))
                         throw RefreshExpirationException()
 
@@ -70,7 +71,5 @@ class AuthService (
                 user.updateRefreshToken(token.refreshToken)
                 return token
         }
-
-
 
 }

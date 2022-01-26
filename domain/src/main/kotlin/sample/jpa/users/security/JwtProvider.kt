@@ -1,4 +1,4 @@
-package sample.jpa.security
+package sample.jpa.users.security
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Header
@@ -12,25 +12,23 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
 import sample.jpa.users.model.dto.TokenDto
 import java.util.*
-import javax.annotation.PostConstruct
 import javax.servlet.http.HttpServletRequest
 
 @Component
-class JwtProvider (
+open class JwtProvider (
         @Value("spring.jwt.secret")
-        private var secretKey: String,
-        private val userDetailsService: UserDetailsService
+        private var Key: String,
         ) {
 
+    private lateinit var userDetailsService: UserDetailsService
     private val accessTokenValidTime: Long = 60 * 60 * 1000L
     private val refreshTokenValidTime: Long = 14 * 24 * 60 * 60 * 1000L
 
-    @PostConstruct
-    fun init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.toByteArray())
-    }
+
+    private val secretKey = Base64.getEncoder().encodeToString(Key.toByteArray())
 
     fun createToken(userId: String): TokenDto {
+        // val claims: Claims = Jwts.claims().setSubject(userId)
         val claims: Claims = Jwts.claims().setSubject(userId)
         val now = Date()
 
@@ -72,9 +70,10 @@ class JwtProvider (
 
     fun getUserId(token: String): String {
         val claims = Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .body
+            .setSigningKey(secretKey)
+            .parseClaimsJws(token)
+            .body
+
         return claims.subject
     }
 
