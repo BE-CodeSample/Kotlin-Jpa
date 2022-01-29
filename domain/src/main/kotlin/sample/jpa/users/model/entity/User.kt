@@ -1,5 +1,6 @@
 package sample.jpa.users.model.entity
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import sample.jpa.interest.model.entity.UserInterest
 import javax.persistence.*
 
@@ -8,18 +9,37 @@ class User (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-
-    @Column(nullable = false)
-    var email: String,
+    val Id: Long? = null,
 
     @Column(length = 50, nullable = false)
-    var nickname: String,
+    var userId: String,
 
+    @Column(nullable = false, unique = true)
+    var email: String,
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(length = 100, nullable = false)
     var password: String,
 
-    @OneToMany(mappedBy = "user")
-    var userInterest: MutableList<UserInterest> = mutableListOf<UserInterest>()
+    @Column(length = 50, nullable = false)
+    var nickName: String,
 
-)
+    @OneToMany(mappedBy = "user")
+    var userInterest: MutableList<UserInterest>? = mutableListOf<UserInterest>(),
+
+    @Column(nullable = false)
+    var refreshToken: String
+) {
+    constructor(userId: String, email: String,
+                password: String, nickName: String) : this(
+            userId = userId,
+            email = email,
+            password = password,
+            nickName = nickName,
+            refreshToken = "1234567890"
+    )
+
+    fun updateRefreshToken(refreshToken: String) {
+        this.refreshToken = refreshToken
+    }
+}

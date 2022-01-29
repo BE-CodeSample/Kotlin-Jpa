@@ -56,6 +56,8 @@ subprojects {
 		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 		implementation("org.jetbrains.kotlin:kotlin-reflect")
 		implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+		implementation ("org.springframework.boot:spring-boot-starter-security")
+		implementation ("io.jsonwebtoken:jjwt:0.9.1")
 		testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
 		testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 		testImplementation("org.springframework.boot:spring-boot-starter-test") {
@@ -85,5 +87,6 @@ project(":domain") {
 	dependencies {
 		runtimeOnly("com.h2database:h2")
 		runtimeOnly("mysql:mysql-connector-java")
+		testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
 	}
 }
