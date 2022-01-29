@@ -8,6 +8,9 @@ import javax.persistence.*
 class User (
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val Id: Long? = null,
+
     @Column(length = 50, nullable = false)
     var userId: String,
 

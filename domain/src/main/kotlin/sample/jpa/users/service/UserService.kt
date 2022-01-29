@@ -17,13 +17,13 @@ import sample.jpa.users.security.JwtProvider
 import javax.transaction.Transactional
 
 @Service
+@Transactional
 open class UserService (
         private val userRepository: UserRepository,
         private val jwtProvider: JwtProvider,
         private val passwordEncoder: PasswordEncoder
         ){
 
-        @Transactional
         open fun signUp(dto: SignUpDto) : TokenDto {
                 userRepository.findByEmail(dto.email)
                         ?. let { throw SignUpFailedException() }
@@ -42,7 +42,6 @@ open class UserService (
                 return token
         }
 
-        @Transactional
         open fun signIn(dto: SignInDto) : TokenDto {
                 val user = userRepository.findByEmail(dto.email)
                         ?: throw UserNotExistException()
@@ -55,7 +54,6 @@ open class UserService (
                 return token
         }
 
-        @Transactional
         open fun reissue(dto: RefreshTokenDto) : TokenDto {
                 if(!jwtProvider.validationToken(dto.refreshToken))
                         throw RefreshExpirationException()
@@ -64,10 +62,7 @@ open class UserService (
                 val user = userRepository.findByUserIdAndRefreshToken(userId, dto.refreshToken)
                         ?: throw RefreshTokenException()
 
-                if(user.refreshToken != dto.refreshToken)
-                        throw RefreshTokenException()
-
-                val token = jwtProvider.createToken(userId)
+                val token = jwtProvider.createToken(user.userId)
                 user.updateRefreshToken(token.refreshToken)
                 return token
         }

@@ -1,5 +1,6 @@
 package sample.jpa
 
+import io.jsonwebtoken.Jwt
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -23,7 +24,7 @@ import sample.jpa.users.service.UserService
 @ExtendWith(MockitoExtension::class)
 class SignInTest {
 
-    @Spy var jwtProvider: JwtProvider = JwtProvider("secret")
+    @Spy var jwtProvider: JwtProvider = JwtProvider()
     @Mock var passwordEncoder: PasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
     @Mock lateinit var userRepository: UserRepository
     @InjectMocks lateinit var userService: UserService
@@ -69,6 +70,14 @@ class SignInTest {
     fun signInFailBecausePasswordIsWrong() {
 
         val signInDto = SignInDto("test@mail.com", "test1234")
+
+        given(userRepository.findByEmail(any()))
+                .willReturn(User(
+                        "test",
+                        "test@mail.com",
+                        "test1234",
+                        "test"
+                ))
 
         given(passwordEncoder.matches(any(), any()))
                 .willReturn(false)

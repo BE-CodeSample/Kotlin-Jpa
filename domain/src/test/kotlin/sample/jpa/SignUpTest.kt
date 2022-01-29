@@ -23,7 +23,7 @@ import sample.jpa.users.service.UserService
 @ExtendWith(MockitoExtension::class)
 class SignUpTest {
 
-    @Spy var jwtProvider: JwtProvider = JwtProvider("secret")
+    @Spy var jwtProvider: JwtProvider = JwtProvider()
     @Spy var passwordEncoder: PasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
     @Mock lateinit var userRepository: UserRepository
     @InjectMocks lateinit var userService: UserService

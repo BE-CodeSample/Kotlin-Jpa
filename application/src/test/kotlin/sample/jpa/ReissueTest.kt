@@ -15,6 +15,7 @@ import sample.jpa.users.service.UserService
 import sample.jpa.users.model.dto.RefreshTokenDto
 import sample.jpa.users.model.dto.SignUpDto
 import sample.jpa.users.model.repository.UserRepository
+import sample.jpa.users.security.JwtProvider
 
 @Transactional
 @AutoConfigureMockMvc
@@ -22,9 +23,10 @@ import sample.jpa.users.model.repository.UserRepository
 class ReissueTest {
 
     @Autowired lateinit var mockMvc: MockMvc
-    @Autowired lateinit var userRepository: UserRepository
     @Autowired lateinit var userService: UserService
     @Autowired lateinit var objectMapper: ObjectMapper
+    @Autowired lateinit var jwtProvider: JwtProvider
+
     var refreshToken = ""
 
     @BeforeEach
@@ -57,14 +59,16 @@ class ReissueTest {
             jsonPath("refreshToken") { exists() }
             jsonPath("refreshTokenExpireDate") { exists() }
         }
+        test.andDo { print() }
     }
 
     @Test
-    @DisplayName("토큰 재발급 테스트(실패) - 만료된 토큰")
-    fun reissueFailBecauseExpire() {
-        //Given
+    @DisplayName("토큰 재발급 테스트(실패) - 유효하지 않은 사용자")
+    fun reissueFailBecauseNotExistUser() {
 
-        val testDto = RefreshTokenDto(refreshToken)
+        //Given
+        val token = jwtProvider.createToken("test2")
+        val testDto = RefreshTokenDto(token.refreshToken)
         //When
         val test = mockMvc.post("/auth/reissue") {
             contentType = MediaType.APPLICATION_JSON
@@ -75,5 +79,4 @@ class ReissueTest {
             status { isUnauthorized() }
         }
     }
-
 }
