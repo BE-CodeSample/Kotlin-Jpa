@@ -10,9 +10,10 @@ import sample.jpa.board.model.repository.BoardRepository
 
 
 @Service
-class BoardService( private val boardRepository: BoardRepository ) {
+open class BoardService(private val boardRepository: BoardRepository ) {
 
-    fun createBoard(
+    @Transactional
+    open fun createBoard(
             type : BoardType, title : String
     ): BoardResponse{
 
@@ -21,7 +22,7 @@ class BoardService( private val boardRepository: BoardRepository ) {
         }
 
         val board = Board(
-                id = null, title = title, type = type
+                 title = title, type = type
         )
 
         val saveBoard = boardRepository.save(board)
